@@ -115,10 +115,7 @@ class PhotoBoothApp {
         captureBtn.addEventListener('click', () => this.startCapture());
 
         // Action buttons
-        const printBtn = document.getElementById('printBtn');
         const newPhotoBtn = document.getElementById('newPhotoBtn');
-
-        printBtn.addEventListener('click', () => this.printPhoto());
         newPhotoBtn.addEventListener('click', () => this.startNewPhoto());
 
         // Keyboard shortcuts
@@ -529,17 +526,7 @@ class PhotoBoothApp {
         }, 300);
     }
 
-    printPhoto() {
-        if (this.currentPhoto) {
-            // Call print function from print.js
-            if (typeof printPhoto === 'function') {
-                printPhoto(this.currentPhoto.blob, this.currentPhoto.filename);
-            } else {
-                console.error('Print function not available');
-                this.showError('Print function not available');
-            }
-        }
-    }
+
 
     startNewPhoto() {
         // Hide loading screen if visible

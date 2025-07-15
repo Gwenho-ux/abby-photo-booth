@@ -291,7 +291,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(248, 249, 250, 0.98) 0%, rgba(233, 236, 239, 0.98) 50%, rgba(222, 226, 230, 0.98) 100%);
+    background: url('assets/bg.jpg') center/cover no-repeat, linear-gradient(135deg, rgba(248, 249, 250, 0.98) 0%, rgba(233, 236, 239, 0.98) 50%, rgba(222, 226, 230, 0.98) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -407,7 +407,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(248, 249, 250, 0.96);
+    background: url('assets/bg.jpg') center/cover no-repeat, rgba(248, 249, 250, 0.96);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -445,7 +445,7 @@ body {
     box-shadow: 
         0 0 0 1px #23456A,
         0 8px 24px rgba(18, 172, 236, 0.3);
-    transform: rotate(0deg);
+    transform: scaleX(-1); /* Flip the result image back to unflipped */
 }
 
 .qr-container {
@@ -453,12 +453,26 @@ body {
     padding: 20px;
 }
 
+.qr-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #12ACEC;
+    text-shadow: 
+        2px 2px 0px #23456A,
+        4px 4px 0px rgba(18, 172, 236, 0.2);
+    margin-bottom: 20px;
+    transform: rotate(0deg);
+    text-align: center;
+    letter-spacing: 1px;
+}
+
 .qr-container #qrCanvas {
     background: white;
-    padding: 16px;
+    padding: 20px;
     border-radius: 12px;
     margin-bottom: 16px;
-    border: 2px solid #12ACEC;
+    border: 3px solid #12ACEC;
     box-shadow: 
         0 0 0 1px #23456A,
         0 4px 12px rgba(18, 172, 236, 0.2);
@@ -473,24 +487,10 @@ body {
     font-weight: 500;
 }
 
-.qr-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    color: #23456A;
-    margin-top: 8px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
 .action-buttons {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-.print-btn {
-    background: linear-gradient(45deg, #25E3B0, #12ACEC);
 }
 
 .new-photo-btn {

@@ -63,10 +63,10 @@ function generateQRCode(photoData) {
             quality: 0.92,
             margin: 1,
             color: {
-                dark: '#2D1B2E',
+                dark: '#23456A',
                 light: '#FFFFFF'
             },
-            width: 200
+            width: 320
         };
 
         // Generate QR code using modern library
@@ -78,9 +78,9 @@ function generateQRCode(photoData) {
                 console.log('🎉 QR Code ready');
 
                 // Style the canvas
-                qrCanvas.style.borderRadius = '10px';
-                qrCanvas.style.border = '3px solid #EE9ABF';
-                qrCanvas.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                qrCanvas.style.borderRadius = '12px';
+                qrCanvas.style.border = '3px solid #12ACEC';
+                qrCanvas.style.boxShadow = '0 0 0 1px #23456A, 0 4px 12px rgba(18, 172, 236, 0.2)';
                 qrCanvas.style.display = 'block';
                 qrCanvas.style.margin = '0 auto';
 
