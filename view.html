@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 90vw;
+        }
+        img {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 3px solid #ff14ff;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+        }
+        .download-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff14ff, #00ffff);
+            border: none;
+            border-radius: 30px;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .error {
+            color: #ff6b6b;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content"></div>
+    </div>
+
+    <script>
+        // Get photo key from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const photoKey = urlParams.get('photo');
+        const contentDiv = document.getElementById('content');
+
+        if (photoKey) {
+            // Try to get photo from sessionStorage
+            const photoData = sessionStorage.getItem(photoKey);
+            
+            if (photoData) {
+                // Display the photo
+                const img = document.createElement('img');
+                img.src = photoData;
+                contentDiv.appendChild(img);
+                
+                // Add download button
+                const downloadBtn = document.createElement('a');
+                downloadBtn.href = photoData;
+                downloadBtn.download = `photo-${Date.now()}.png`;
+                downloadBtn.className = 'download-btn';
+                downloadBtn.textContent = 'Download Photo';
+                contentDiv.appendChild(document.createElement('br'));
+                contentDiv.appendChild(downloadBtn);
+            } else {
+                contentDiv.innerHTML = '<p class="error">Photo not found. Please scan the QR code from the same device/session.</p>';
+            }
+        } else {
+            contentDiv.innerHTML = '<p class="error">No photo specified.</p>';
+        }
+    </script>
+</body>
+</html> 

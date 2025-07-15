@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .success { background: rgba(76, 175, 80, 0.3); }
+        .error { background: rgba(244, 67, 54, 0.3); }
+        .info { background: rgba(33, 150, 243, 0.3); }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Firebase Storage Test</h1>
+        
+        <div class="test-section">
+            <h2>Configuration Check</h2>
+            <div id="config-status" class="status info">Checking Firebase configuration...</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Upload Test</h2>
+            <button onclick="testTextUpload()">Test Text Upload</button>
+            <button onclick="testImageUpload()">Test Image Upload</button>
+            <div id="upload-status" class="status info">Ready to test uploads</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Photo Booth Integration</h2>
+            <button onclick="testPhotoBoothIntegration()">Test Integration</button>
+            <div id="integration-status" class="status info">Ready to test integration</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>QR Code Test</h2>
+            <button onclick="testQRGeneration()">Test QR Code Generation</button>
+            <div id="qr-test-status" class="status info">Ready to test QR code</div>
+            <div style="text-align: center; margin-top: 20px;">
+                <canvas id="qrCanvas" style="display: none;"></canvas>
+                <div id="qrStatus"></div>
+            </div>
+        </div>
+        
+        <div id="results">
+            <h3>Test Results:</h3>
+            <div id="results-content"></div>
+        </div>
+    </div>
+
+    <!-- Firebase Storage Module -->
+    <script type="module" src="modules/firebase-storage.js"></script>
+    
+    <!-- Photo Booth Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script src="qr.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Wait for Firebase to initialize
+        setTimeout(() => {
+            checkConfiguration();
+        }, 1000);
+        
+        function updateStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = `status ${type}`;
+            element.innerHTML = message;
+        }
+        
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results-content');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(div);
+        }
+        
+        function checkConfiguration() {
+            if (typeof window.uploadImageToFirebase === 'function') {
+                updateStatus('config-status', '✅ Firebase module loaded successfully', 'success');
+                addResult('Firebase configuration check passed', 'success');
+            } else {
+                updateStatus('config-status', '❌ Firebase module not loaded', 'error');
+                addResult('Firebase configuration check failed', 'error');
+            }
+        }
+        
+        async function testTextUpload() {
+            updateStatus('upload-status', '🔄 Testing text upload...', 'info');
+            
+            try {
+                const testData = `Test upload at ${new Date().toISOString()}`;
+                const blob = new Blob([testData], { type: 'text/plain' });
+                const filename = `test-${Date.now()}.txt`;
+                
+                addResult(`Starting text upload: ${filename}`, 'info');
+                
+                if (!window.uploadImageToFirebase) {
+                    throw new Error('Firebase upload function not available');
+                }
+                
+                const url = await window.uploadImageToFirebase(blob, filename);
+                
+                updateStatus('upload-status', `✅ Text uploaded successfully!<br>URL: <a href="${url}" target="_blank">${url}</a>`, 'success');
+                addResult(`Text upload successful: ${url}`, 'success');
+                
+            } catch (error) {
+                updateStatus('upload-status', `❌ Text upload failed: ${error.message}`, 'error');
+                addResult(`Text upload failed: ${error.message}`, 'error');
+                console.error('Text upload error:', error);
+            }
+        }
+        
+        async function testImageUpload() {
+            updateStatus('upload-status', '🔄 Testing image upload...', 'info');
+            
+            try {
+                // Create a simple test image (canvas)
+                const canvas = document.createElement('canvas');
+                canvas.width = 200;
+                canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                
+                // Draw a simple test pattern
+                ctx.fillStyle = '#4CAF50';
+                ctx.fillRect(0, 0, 200, 200);
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Test Image', 100, 100);
+                ctx.fillText(new Date().toLocaleTimeString(), 100, 130);
+                
+                // Convert to blob
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const filename = `test-image-${Date.now()}.png`;
+                
+                addResult(`Starting image upload: ${filename}`, 'info');
+                
+                if (!window.uploadImageToFirebase) {
+                    throw new Error('Firebase upload function not available');
+                }
+                
+                const url = await window.uploadImageToFirebase(blob, filename);
+                
+                updateStatus('upload-status', `✅ Image uploaded successfully!<br>URL: <a href="${url}" target="_blank">${url}</a>`, 'success');
+                addResult(`Image upload successful: ${url}`, 'success');
+                
+            } catch (error) {
+                updateStatus('upload-status', `❌ Image upload failed: ${error.message}`, 'error');
+                addResult(`Image upload failed: ${error.message}`, 'error');
+                console.error('Image upload error:', error);
+            }
+        }
+        
+        function testPhotoBoothIntegration() {
+            updateStatus('integration-status', '🔄 Testing photo booth integration...', 'info');
+            
+            // Check if required functions exist
+            const checks = [
+                { name: 'uploadImageToFirebase', func: window.uploadImageToFirebase },
+                { name: 'generateQRCode', func: window.generateQRCode },
+                { name: 'PhotoBoothApp', func: window.PhotoBoothApp }
+            ];
+            
+            let allPassed = true;
+            
+            checks.forEach(check => {
+                if (check.func) {
+                    addResult(`✅ ${check.name} function available`, 'success');
+                } else {
+                    addResult(`❌ ${check.name} function missing`, 'error');
+                    allPassed = false;
+                }
+            });
+            
+            if (allPassed) {
+                updateStatus('integration-status', '✅ All integration checks passed!', 'success');
+                addResult('Photo booth integration ready', 'success');
+            } else {
+                updateStatus('integration-status', '❌ Some integration checks failed', 'error');
+                addResult('Photo booth integration has issues', 'error');
+            }
+        }
+        
+        function testQRGeneration() {
+            updateStatus('qr-test-status', '🔄 Testing QR code generation...', 'info');
+            
+            try {
+                // Check if QRCode library is available
+                if (typeof QRCode === 'undefined') {
+                    throw new Error('QRCode library not loaded');
+                }
+                
+                // Check if generateQRCode function is available
+                if (typeof window.generateQRCode !== 'function') {
+                    throw new Error('generateQRCode function not available');
+                }
+                
+                // Create mock photo data
+                const mockPhotoData = {
+                    filename: `test-qr-${Date.now()}.png`,
+                    firebaseUrl: 'https://firebasestorage.googleapis.com/v0/b/test-project.appspot.com/o/photos%2Ftest-photo.png?alt=media&token=test-token'
+                };
+                
+                addResult('Testing QR code generation with Firebase URL', 'info');
+                
+                // Generate QR code
+                window.generateQRCode(mockPhotoData);
+                
+                // Check if QR code was generated
+                setTimeout(() => {
+                    const qrCanvas = document.getElementById('qrCanvas');
+                    if (qrCanvas && qrCanvas.style.display !== 'none') {
+                        updateStatus('qr-test-status', '✅ QR code generated successfully!', 'success');
+                        addResult('QR code generation successful', 'success');
+                    } else {
+                        updateStatus('qr-test-status', '⚠️ QR code generation completed but canvas not visible', 'info');
+                        addResult('QR code generation completed with issues', 'info');
+                    }
+                }, 500);
+                
+            } catch (error) {
+                updateStatus('qr-test-status', `❌ QR code test failed: ${error.message}`, 'error');
+                addResult(`QR code test failed: ${error.message}`, 'error');
+                console.error('QR code test error:', error);
+            }
+        }
+    </script>
+</body>
+</html> 

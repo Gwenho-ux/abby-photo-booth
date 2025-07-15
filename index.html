@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sci-Fi Photo Booth</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Background particles -->
+        <div class="particles"></div>
+        
+        <!-- Header removed -->
+        <!-- <header class="header">
+            <h1 class="title">SCI-FI PHOTO BOOTH</h1>
+            <div class="status-bar">
+                <span class="status-indicator active"></span>
+                <span class="status-text">SYSTEM READY</span>
+            </div>
+        </header> -->
+
+        <!-- Main photo booth area -->
+        <main class="photo-booth">
+            <!-- Video preview area -->
+            <div class="video-container">
+                <video id="webcam" autoplay muted playsinline></video>
+                <video id="overlay" autoplay muted loop playsinline></video>
+                <div class="frame-overlay"></div>
+                
+                <!-- Countdown display -->
+                <div class="countdown-display" id="countdown">
+                    <span class="countdown-number"></span>
+                </div>
+                
+                <!-- Controls overlay -->
+                <div class="controls-overlay">
+                    <button id="captureBtn" class="capture-btn">
+                        <span class="btn-text">TAKE PHOTO</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hidden canvas for capturing -->
+            <canvas id="captureCanvas" style="display: none;"></canvas>
+        </main>
+        
+        <!-- Loading screen -->
+        <div class="loading-screen" id="loadingScreen" style="display: none;">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">
+                    <h2 class="loading-title">PROCESSING PHOTO...</h2>
+                    <p class="loading-subtitle">Creating your magical moment</p>
+                    <div class="loading-dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo result area -->
+        <div class="photo-result" id="photoResult" style="display: none;">
+            <div class="result-container">
+                <div class="photo-preview">
+                    <img id="capturedPhoto" alt="Captured Photo">
+                </div>
+                <div class="qr-container">
+                    <canvas id="qrCanvas"></canvas>
+                    <div id="qrStatus"></div>
+                    <p class="qr-text">SCAN TO VIEW & DOWNLOAD</p>
+                </div>
+                <div class="action-buttons">
+                    <button id="printBtn" class="action-btn print-btn">
+                        <span class="btn-text">PRINT PHOTO</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                    <button id="newPhotoBtn" class="action-btn new-photo-btn">
+                        <span class="btn-text">NEW PHOTO</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="countdownSound" preload="auto">
+        <source src="sounds/countdown.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="shutterSound" preload="auto">
+        <source src="sounds/shutter.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Background music disabled for now -->
+    <!-- <audio id="bgMusic" preload="auto" loop>
+        <source src="sounds/bg-music.mp3" type="audio/mpeg">
+    </audio> -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script type="module" src="modules/firebase-storage.js"></script>
+    <script src="qr.js"></script>
+    <script src="print.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

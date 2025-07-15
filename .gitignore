@@ -1,0 +1,5 @@
+.DS_Store
+photos/*
+!photos/.gitkeep
+node_modules/
+*.log 
