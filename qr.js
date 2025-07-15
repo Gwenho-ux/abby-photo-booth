@@ -2,20 +2,11 @@
 function generateQRCode(photoData) {
     console.log('generateQRCode called with:', photoData);
     const qrCanvas = document.getElementById('qrCanvas');
-    const qrStatus = document.getElementById('qrStatus');
 
     if (!qrCanvas) {
         console.error('QR canvas element not found');
         return;
     }
-
-    if (!qrStatus) {
-        console.error('QR status element not found');
-        return;
-    }
-
-    // Clear existing status
-    qrStatus.innerHTML = '';
 
     try {
         // Determine which URL to use for QR code
@@ -73,7 +64,7 @@ function generateQRCode(photoData) {
         QRCode.toCanvas(qrCanvas, qrUrl, qrOptions, function (error) {
             if (error) {
                 console.error('QR code generation failed:', error);
-                handleQRError(error, photoData, qrStatus);
+                handleQRError(error, photoData);
             } else {
                 console.log('🎉 QR Code ready');
 
@@ -83,70 +74,27 @@ function generateQRCode(photoData) {
                 qrCanvas.style.boxShadow = '0 0 0 1px #23456A, 0 4px 12px rgba(18, 172, 236, 0.2)';
                 qrCanvas.style.display = 'block';
                 qrCanvas.style.margin = '0 auto';
-
-                // Update status
-                updateQRStatus(qrStatus, storageType, true);
             }
         });
 
     } catch (error) {
         console.error('Error generating QR code:', error);
-        handleQRError(error, photoData, qrStatus);
+        handleQRError(error, photoData);
     }
 }
 
-function updateQRStatus(statusElement, storageType, success) {
-    statusElement.style.cssText = `
-            margin-top: 15px;
-            font-size: 16px;
-            color: #2D1B2E;
-            text-align: center;
-            font-weight: bold;
-            font-family: 'Comic Sans MS', cursive;
-            background: rgba(238, 154, 191, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid #EE9ABF;
-        `;
-
-    if (success) {
-        if (storageType === 'Firebase') {
-            statusElement.innerHTML = '🔥 Scan to view your photo!<br><small>Stored in Firebase</small>';
-        } else {
-            statusElement.innerHTML = '📱 Scan to view your photo!<br><small>Stored locally</small>';
-        }
-    } else {
-        statusElement.innerHTML = '❌ QR Code Error<br><small>Photo saved successfully</small>';
-    }
-}
-
-function handleQRError(error, photoData, statusElement) {
+function handleQRError(error, photoData) {
     console.error('QR code error details:', error);
 
-    // Hide canvas and show error message
+    // Hide canvas on error
     const qrCanvas = document.getElementById('qrCanvas');
     if (qrCanvas) {
         qrCanvas.style.display = 'none';
     }
 
-    // Show error status
-    statusElement.style.cssText = `
-                color: #FF6B6B; 
-                padding: 20px; 
-                text-align: center;
-                border: 2px solid #FF6B6B;
-                border-radius: 10px;
-                background: rgba(255, 107, 107, 0.1);
-                font-family: 'Comic Sans MS', cursive;
-        margin-top: 15px;
-    `;
-
-    statusElement.innerHTML = `
-                ❌ QR Code Generation Failed<br>
-        <small>Photo saved successfully as:</small><br>
-                <strong>${photoData.filename}</strong>
-        `;
+    console.log(`QR Code generation failed, but photo saved successfully as: ${photoData.filename}`);
 }
 
 // Make function globally available
+window.generateQRCode = generateQRCode; 
 window.generateQRCode = generateQRCode; 

@@ -33,14 +33,14 @@
                 <div class="countdown-display" id="countdown">
                     <span class="countdown-number"></span>
                 </div>
-                
-                <!-- Controls overlay -->
-                <div class="controls-overlay">
-                    <button id="captureBtn" class="capture-btn">
-                        <span class="btn-text">TAKE PHOTO</span>
-                        <span class="btn-glow"></span>
-                    </button>
-                </div>
+            </div>
+            
+            <!-- Capture button outside video container -->
+            <div class="capture-controls">
+                <button id="captureBtn" class="capture-btn">
+                    <span class="btn-text">TAKE PHOTO</span>
+                    <span class="btn-glow"></span>
+                </button>
             </div>
             
             <!-- Hidden canvas for capturing -->
@@ -72,9 +72,6 @@
                 <div class="qr-container">
                     <h2 class="qr-title">SCAN TO VIEW & DOWNLOAD</h2>
                     <canvas id="qrCanvas"></canvas>
-                    <div id="qrStatus" style="display: none;"></div>
-                </div>
-                <div class="action-buttons">
                     <button id="newPhotoBtn" class="action-btn new-photo-btn">
                         <span class="btn-text">NEW PHOTO</span>
                         <span class="btn-glow"></span>

@@ -68,9 +68,6 @@ body {
     font-size: 2.5rem;
     font-weight: 800;
     color: #12ACEC;
-    text-shadow: 
-        2px 2px 0px #23456A,
-        4px 4px 0px rgba(18, 172, 236, 0.3);
     margin-bottom: 10px;
     letter-spacing: 2px;
     transform: rotate(0deg);
@@ -122,6 +119,7 @@ body {
 .photo-booth {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -195,9 +193,6 @@ body {
     font-size: 8rem;
     font-weight: 800;
     color: #12ACEC;
-    text-shadow: 
-        3px 3px 0px #23456A,
-        6px 6px 0px rgba(18, 172, 236, 0.3);
     animation: countdownPulse 1s ease-out;
     transform: rotate(0deg);
 }
@@ -217,24 +212,23 @@ body {
     }
 }
 
-/* Controls Overlay */
-.controls-overlay {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+/* Capture Controls */
+.capture-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
     z-index: 5;
 }
 
 /* Buttons */
 .capture-btn, .action-btn {
     position: relative;
-    background: linear-gradient(45deg, #12ACEC, #25E3B0);
-    border: 2px solid #23456A;
+    background:#25E3B0;
     padding: 16px 32px;
+    border: none;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 1000;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -258,9 +252,8 @@ body {
 .btn-text {
     position: relative;
     z-index: 2;
-    color: #ffffff;
+    color: #23456A;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(35, 69, 106, 0.3);
 }
 
 .btn-glow {
@@ -352,10 +345,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    color: #12ACEC;
-    text-shadow: 
-        2px 2px 0px #23456A,
-        4px 4px 0px rgba(18, 172, 236, 0.2);
+    color: #23456A;
     margin-bottom: 12px;
     transform: rotate(0deg);
     animation: loadingTextBounce 2s ease-in-out infinite;
@@ -445,22 +435,22 @@ body {
     box-shadow: 
         0 0 0 1px #23456A,
         0 8px 24px rgba(18, 172, 236, 0.3);
-    transform: scaleX(-1); /* Flip the result image back to unflipped */
 }
 
 .qr-container {
     text-align: center;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .qr-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #12ACEC;
-    text-shadow: 
-        2px 2px 0px #23456A,
-        4px 4px 0px rgba(18, 172, 236, 0.2);
+    font-size: 1.7rem;
+    font-weight: 1000;
+    color: #23456A;
     margin-bottom: 20px;
     transform: rotate(0deg);
     text-align: center;
@@ -487,15 +477,9 @@ body {
     font-weight: 500;
 }
 
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
 
-.new-photo-btn {
-    background: linear-gradient(45deg, #23456A, #12ACEC);
-}
+
+
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -630,29 +614,7 @@ body {
     to { opacity: 0; transform: translateY(-20px) rotate(-5deg); }
 }
 
-/* Comic Style Effects */
-.capture-btn::before {
-    content: "SNAP!";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-10deg);
-    background: #FFE066;
-    color: #2D1B2E;
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 3px solid #2D1B2E;
-    font-size: 0.8rem;
-    font-weight: 900;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    box-shadow: 3px 3px 0px #2D1B2E;
-    pointer-events: none;
-}
 
-.capture-btn:hover::before {
-    opacity: 1;
-}
 
 /* Clean subtle pattern */
 body::after {

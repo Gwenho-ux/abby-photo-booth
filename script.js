@@ -270,13 +270,9 @@ class PhotoBoothApp {
             this.canvas.height = this.webcam.videoHeight;
             console.log('Canvas dimensions:', this.canvas.width, 'x', this.canvas.height);
 
-            // Draw webcam frame (flipped to match mirrored preview)
+            // Draw webcam frame (unflipped for proper saved orientation)
             console.log('Drawing webcam frame...');
-            this.ctx.save();
-            this.ctx.scale(-1, 1);
-            this.ctx.translate(-this.canvas.width, 0);
             this.ctx.drawImage(this.webcam, 0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.restore();
 
             // Draw overlay video frame if playing (unflipped)
             if (!this.overlayVideo.paused && !this.overlayVideo.ended) {
@@ -314,12 +310,8 @@ class PhotoBoothApp {
         return new Promise((resolve) => {
             const frame = new Image();
             frame.onload = () => {
-                // Apply the same flip transform for the frame overlay
-                this.ctx.save();
-                this.ctx.scale(-1, 1);
-                this.ctx.translate(-this.canvas.width, 0);
+                // Draw frame overlay normally (no flip needed)
                 this.ctx.drawImage(frame, 0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.restore();
                 resolve();
             };
             frame.onerror = () => {
@@ -480,24 +472,6 @@ class PhotoBoothApp {
                     generateQRCode(photoData);
                 } else {
                     console.error('generateQRCode function not available');
-                    // Show a simple message instead
-                    const qrStatus = document.getElementById('qrStatus');
-                    if (qrStatus) {
-                        qrStatus.innerHTML = `
-                                <div style="
-                                    color: #2D1B2E; 
-                                    padding: 20px; 
-                                    text-align: center;
-                                    border: 2px solid #EE9ABF;
-                                    border-radius: 10px;
-                                    background: rgba(238, 154, 191, 0.1);
-                                    font-family: 'Comic Sans MS', cursive;
-                                ">
-                                    📸 Photo saved as:<br>
-                                    <strong>${filename}</strong>
-                                </div>
-                            `;
-                    }
                 }
             } catch (error) {
                 console.error('QR code generation failed:', error);
