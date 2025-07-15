@@ -6,9 +6,9 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive, sans-serif;
-    background: linear-gradient(135deg, #FFE4F0 0%, #FFCCE5 50%, #EE9ABF 100%);
-    color: #2D1B2E;
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    background: url('assets/bg.jpg') center/cover no-repeat, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: #23456A;
     overflow: hidden;
     height: 100vh;
     position: relative;
@@ -42,10 +42,10 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 30%, rgba(238, 154, 191, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255, 182, 223, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 50% 20%, rgba(255, 204, 229, 0.4) 0%, transparent 50%);
-    animation: particleFloat 8s ease-in-out infinite;
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.25) 0%, transparent 50%);
+    animation: particleFloat 12s ease-in-out infinite;
 }
 
 @keyframes particleFloat {
@@ -64,16 +64,16 @@ body {
 }
 
 .title {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2.5rem;
-    font-weight: 900;
-    color: #EE9ABF;
+    font-weight: 800;
+    color: #12ACEC;
     text-shadow: 
-        3px 3px 0px #2D1B2E,
-        6px 6px 0px rgba(238, 154, 191, 0.3);
+        2px 2px 0px #23456A,
+        4px 4px 0px rgba(18, 172, 236, 0.3);
     margin-bottom: 10px;
     letter-spacing: 2px;
-    transform: rotate(-2deg);
+    transform: rotate(0deg);
 }
 
 .status-bar {
@@ -81,27 +81,27 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 8px 20px;
-    border-radius: 25px;
-    border: 3px solid #EE9ABF;
+    border-radius: 8px;
+    border: 2px solid #12ACEC;
     box-shadow: 
-        0 0 0 3px #2D1B2E,
-        5px 5px 0px rgba(238, 154, 191, 0.3);
-    transform: rotate(1deg);
+        0 0 0 2px #23456A,
+        0 4px 12px rgba(18, 172, 236, 0.2);
+    transform: rotate(0deg);
 }
 
 .status-indicator {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #FF6B6B;
-    border: 2px solid #2D1B2E;
+    background: #dc3545;
+    border: 2px solid #23456A;
     animation: pulse 2s infinite;
 }
 
 .status-indicator.active {
-    background: #4ECDC4;
+    background: #25E3B0;
 }
 
 @keyframes pulse {
@@ -110,11 +110,12 @@ body {
 }
 
 .status-text {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-size: 1rem;
-    color: #2D1B2E;
-    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #23456A;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Main Photo Booth */
@@ -135,14 +136,14 @@ body {
     /* Calculate max dimensions to maintain 16:9 aspect ratio */
     max-width: min(90vw, calc(80vh * 16/9)); /* Width constrained by viewport or height ratio */
     max-height: min(80vh, calc(90vw * 9/16)); /* Height constrained by viewport or width ratio */
-    border-radius: 25px;
+    border-radius: 12px;
     overflow: hidden;
-    border: 5px solid #EE9ABF;
+    border: 3px solid #12ACEC;
     box-shadow: 
-        0 0 0 5px #2D1B2E,
-        10px 10px 0px rgba(238, 154, 191, 0.4),
-        inset 0 0 50px rgba(238, 154, 191, 0.1);
-    transform: rotate(-1deg);
+        0 0 0 2px #23456A,
+        0 8px 32px rgba(18, 172, 236, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: rotate(0deg);
 }
 
 #webcam, #overlay {
@@ -190,15 +191,15 @@ body {
 }
 
 .countdown-number {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+    font-family: 'Montserrat', sans-serif;
     font-size: 8rem;
-    font-weight: 900;
-    color: #EE9ABF;
+    font-weight: 800;
+    color: #12ACEC;
     text-shadow: 
-        5px 5px 0px #2D1B2E,
-        10px 10px 0px rgba(238, 154, 191, 0.3);
+        3px 3px 0px #23456A,
+        6px 6px 0px rgba(18, 172, 236, 0.3);
     animation: countdownPulse 1s ease-out;
-    transform: rotate(-5deg);
+    transform: rotate(0deg);
 }
 
 @keyframes countdownPulse {
@@ -228,38 +229,38 @@ body {
 /* Buttons */
 .capture-btn, .action-btn {
     position: relative;
-    background: linear-gradient(45deg, #EE9ABF, #FFB6DF);
-    border: 4px solid #2D1B2E;
-    padding: 20px 40px;
-    border-radius: 25px;
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-weight: 900;
-    font-size: 1.3rem;
+    background: linear-gradient(45deg, #12ACEC, #25E3B0);
+    border: 2px solid #23456A;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     overflow: hidden;
-    margin: 10px;
+    margin: 8px;
     box-shadow: 
-        0 0 0 2px #EE9ABF,
-        6px 6px 0px #2D1B2E;
-    transform: rotate(-2deg);
+        0 4px 12px rgba(18, 172, 236, 0.3),
+        0 2px 4px rgba(35, 69, 106, 0.2);
+    transform: rotate(0deg);
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .capture-btn:hover, .action-btn:hover {
-    transform: translateY(-5px) rotate(-2deg) scale(1.05);
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 
-        0 0 0 2px #EE9ABF,
-        8px 8px 0px #2D1B2E,
-        0 15px 30px rgba(238, 154, 191, 0.4);
+        0 8px 24px rgba(18, 172, 236, 0.4),
+        0 4px 8px rgba(35, 69, 106, 0.3);
 }
 
 .btn-text {
     position: relative;
     z-index: 2;
-    color: #2D1B2E;
-    font-weight: 900;
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(35, 69, 106, 0.3);
 }
 
 .btn-glow {
@@ -290,41 +291,41 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 228, 240, 0.98) 0%, rgba(255, 204, 229, 0.98) 50%, rgba(238, 154, 191, 0.98) 100%);
+    background: linear-gradient(135deg, rgba(248, 249, 250, 0.98) 0%, rgba(233, 236, 239, 0.98) 50%, rgba(222, 226, 230, 0.98) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 15;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
 }
 
 .loading-container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 60px 40px;
-    border-radius: 30px;
-    border: 5px solid #EE9ABF;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 48px 32px;
+    border-radius: 16px;
+    border: 2px solid #12ACEC;
     box-shadow: 
-        0 0 0 5px #2D1B2E,
-        15px 15px 0px rgba(238, 154, 191, 0.3),
-        inset 0 0 30px rgba(238, 154, 191, 0.1);
-    transform: rotate(-1deg);
-    animation: loadingPulse 2s ease-in-out infinite;
+        0 0 0 1px #23456A,
+        0 12px 40px rgba(18, 172, 236, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transform: rotate(0deg);
+    animation: loadingPulse 3s ease-in-out infinite;
 }
 
 @keyframes loadingPulse {
-    0%, 100% { transform: rotate(-1deg) scale(1); }
-    50% { transform: rotate(-1deg) scale(1.02); }
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.01); opacity: 0.95; }
 }
 
 .loading-spinner {
-    width: 80px;
-    height: 80px;
-    border: 6px solid #FFB6DF;
-    border-top: 6px solid #EE9ABF;
+    width: 64px;
+    height: 64px;
+    border: 4px solid #e9ecef;
+    border-top: 4px solid #12ACEC;
     border-radius: 50%;
-    animation: loadingRotate 1s linear infinite;
-    margin: 0 auto 30px;
+    animation: loadingRotate 1.2s linear infinite;
+    margin: 0 auto 24px;
     position: relative;
 }
 
@@ -333,10 +334,10 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 40px;
-    height: 40px;
-    border: 4px solid #2D1B2E;
-    border-top: 4px solid transparent;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #dee2e6;
+    border-top: 3px solid #25E3B0;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: loadingRotate 0.8s linear infinite reverse;
@@ -348,30 +349,31 @@ body {
 }
 
 .loading-title {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #EE9ABF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #12ACEC;
     text-shadow: 
-        3px 3px 0px #2D1B2E,
-        6px 6px 0px rgba(238, 154, 191, 0.3);
-    margin-bottom: 15px;
-    transform: rotate(2deg);
-    animation: loadingTextBounce 1.5s ease-in-out infinite;
+        2px 2px 0px #23456A,
+        4px 4px 0px rgba(18, 172, 236, 0.2);
+    margin-bottom: 12px;
+    transform: rotate(0deg);
+    animation: loadingTextBounce 2s ease-in-out infinite;
 }
 
 .loading-subtitle {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-size: 1.2rem;
-    color: #2D1B2E;
-    margin-bottom: 30px;
-    font-weight: bold;
-    transform: rotate(-1deg);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #23456A;
+    margin-bottom: 24px;
+    font-weight: 500;
+    transform: rotate(0deg);
+    opacity: 0.8;
 }
 
 @keyframes loadingTextBounce {
-    0%, 100% { transform: rotate(2deg) translateY(0px); }
-    50% { transform: rotate(2deg) translateY(-5px); }
+    0%, 100% { transform: translateY(0px); opacity: 1; }
+    50% { transform: translateY(-2px); opacity: 0.9; }
 }
 
 .loading-dots {
@@ -381,12 +383,12 @@ body {
 }
 
 .loading-dots .dot {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: #EE9ABF;
-    border: 2px solid #2D1B2E;
-    animation: loadingDotBounce 1.4s ease-in-out infinite both;
+    background: #12ACEC;
+    border: 1px solid #23456A;
+    animation: loadingDotBounce 1.8s ease-in-out infinite both;
 }
 
 .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
@@ -405,26 +407,27 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 228, 240, 0.95);
+    background: rgba(248, 249, 250, 0.96);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 20;
+    backdrop-filter: blur(12px);
 }
 
 .result-container {
     display: flex;
-    gap: 40px;
+    gap: 32px;
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 40px;
-    border-radius: 30px;
-    border: 5px solid #EE9ABF;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 32px;
+    border-radius: 16px;
+    border: 2px solid #12ACEC;
     box-shadow: 
-        0 0 0 5px #2D1B2E,
-        15px 15px 0px rgba(238, 154, 191, 0.3);
-    backdrop-filter: blur(10px);
-    transform: rotate(1deg);
+        0 0 0 1px #23456A,
+        0 16px 48px rgba(18, 172, 236, 0.2);
+    backdrop-filter: blur(15px);
+    transform: rotate(0deg);
 }
 
 .photo-preview {
@@ -437,12 +440,12 @@ body {
     max-height: 450px;
     width: 100%;
     height: auto;
-    border-radius: 20px;
-    border: 4px solid #EE9ABF;
+    border-radius: 12px;
+    border: 3px solid #12ACEC;
     box-shadow: 
-        0 0 0 4px #2D1B2E,
-        8px 8px 0px rgba(238, 154, 191, 0.4);
-    transform: rotate(-2deg);
+        0 0 0 1px #23456A,
+        0 8px 24px rgba(18, 172, 236, 0.3);
+    transform: rotate(0deg);
 }
 
 .qr-container {
@@ -452,31 +455,32 @@ body {
 
 .qr-container #qrCanvas {
     background: white;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    border: 3px solid #EE9ABF;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 2px solid #12ACEC;
     box-shadow: 
-        0 0 0 3px #2D1B2E,
-        6px 6px 0px rgba(238, 154, 191, 0.3);
-    transform: rotate(2deg);
+        0 0 0 1px #23456A,
+        0 4px 12px rgba(18, 172, 236, 0.2);
+    transform: rotate(0deg);
 }
 
 .qr-container #qrStatus {
-    margin-top: 10px;
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-size: 1rem;
-    color: #2D1B2E;
-    font-weight: bold;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #23456A;
+    font-weight: 500;
 }
 
 .qr-text {
-    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-    font-size: 1.1rem;
-    color: #2D1B2E;
-    margin-top: 10px;
-    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #23456A;
+    margin-top: 8px;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .action-buttons {
@@ -486,11 +490,11 @@ body {
 }
 
 .print-btn {
-    background: linear-gradient(45deg, #FFB6DF, #FF91C7);
+    background: linear-gradient(45deg, #25E3B0, #12ACEC);
 }
 
 .new-photo-btn {
-    background: linear-gradient(45deg, #4e81cd, #4c44a0);
+    background: linear-gradient(45deg, #23456A, #12ACEC);
 }
 
 /* Responsive Design */
@@ -650,7 +654,7 @@ body {
     opacity: 1;
 }
 
-/* Comic dots pattern */
+/* Clean subtle pattern */
 body::after {
     content: '';
     position: fixed;
@@ -659,10 +663,10 @@ body::after {
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(circle at 25% 25%, #EE9ABF 2px, transparent 2px),
-        radial-gradient(circle at 75% 75%, #FFB6DF 1px, transparent 1px);
-    background-size: 50px 50px, 30px 30px;
-    opacity: 0.1;
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+    background-size: 60px 60px, 40px 40px;
+    opacity: 0.3;
     pointer-events: none;
     z-index: -1;
 } 
