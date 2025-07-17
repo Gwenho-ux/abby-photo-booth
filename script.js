@@ -274,11 +274,42 @@ class PhotoBoothApp {
             console.log('Drawing webcam frame...');
             this.ctx.drawImage(this.webcam, 0, 0, this.canvas.width, this.canvas.height);
 
-            // Draw overlay video frame if playing (unflipped)
+            // Draw overlay video frame if playing (unflipped) with proper aspect ratio
             if (!this.overlayVideo.paused && !this.overlayVideo.ended) {
                 console.log('Drawing overlay video frame...');
-                // Don't use screen blend mode for capture - just overlay normally
-                this.ctx.drawImage(this.overlayVideo, 0, 0, this.canvas.width, this.canvas.height);
+                
+                // Get video's natural dimensions
+                const videoWidth = this.overlayVideo.videoWidth;
+                const videoHeight = this.overlayVideo.videoHeight;
+                
+                if (videoWidth && videoHeight) {
+                    // Calculate scaling to fit within canvas while maintaining aspect ratio
+                    const canvasAspect = this.canvas.width / this.canvas.height;
+                    const videoAspect = videoWidth / videoHeight;
+                    
+                    let drawWidth, drawHeight, drawX, drawY;
+                    
+                    if (videoAspect > canvasAspect) {
+                        // Video is wider - scale to canvas width
+                        drawWidth = this.canvas.width;
+                        drawHeight = this.canvas.width / videoAspect;
+                        drawX = 0;
+                        drawY = (this.canvas.height - drawHeight) / 2;
+                    } else {
+                        // Video is taller - scale to canvas height
+                        drawHeight = this.canvas.height;
+                        drawWidth = this.canvas.height * videoAspect;
+                        drawX = (this.canvas.width - drawWidth) / 2;
+                        drawY = 0;
+                    }
+                    
+                    // Draw video with proper aspect ratio
+                    this.ctx.drawImage(this.overlayVideo, drawX, drawY, drawWidth, drawHeight);
+                    console.log(`Overlay drawn at: ${drawX}, ${drawY}, ${drawWidth}x${drawHeight}`);
+                } else {
+                    // Fallback to original method if dimensions not available
+                    this.ctx.drawImage(this.overlayVideo, 0, 0, this.canvas.width, this.canvas.height);
+                }
             }
 
             // Add frame overlay
