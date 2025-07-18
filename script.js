@@ -274,7 +274,7 @@ class PhotoBoothApp {
             console.log('Drawing webcam frame...');
             this.ctx.drawImage(this.webcam, 0, 0, this.canvas.width, this.canvas.height);
 
-            // Draw overlay video frame if playing (unflipped) with proper aspect ratio
+            // Draw overlay video frame if playing (unflipped) matching CSS object-fit: cover behavior
             if (!this.overlayVideo.paused && !this.overlayVideo.ended) {
                 console.log('Drawing overlay video frame...');
                 
@@ -283,29 +283,44 @@ class PhotoBoothApp {
                 const videoHeight = this.overlayVideo.videoHeight;
                 
                 if (videoWidth && videoHeight) {
-                    // Calculate scaling to fit within canvas while maintaining aspect ratio
+                    // Implement object-fit: cover behavior - scale to fill canvas, center and crop if needed
                     const canvasAspect = this.canvas.width / this.canvas.height;
                     const videoAspect = videoWidth / videoHeight;
                     
                     let drawWidth, drawHeight, drawX, drawY;
+                    let sourceX = 0, sourceY = 0, sourceWidth = videoWidth, sourceHeight = videoHeight;
                     
                     if (videoAspect > canvasAspect) {
-                        // Video is wider - scale to canvas width
+                        // Video is wider than canvas - crop sides (like CSS object-fit: cover)
                         drawWidth = this.canvas.width;
-                        drawHeight = this.canvas.width / videoAspect;
-                        drawX = 0;
-                        drawY = (this.canvas.height - drawHeight) / 2;
-                    } else {
-                        // Video is taller - scale to canvas height
                         drawHeight = this.canvas.height;
-                        drawWidth = this.canvas.height * videoAspect;
-                        drawX = (this.canvas.width - drawWidth) / 2;
+                        drawX = 0;
                         drawY = 0;
+                        
+                        // Calculate which part of the video to use (crop horizontally)
+                        const scaledVideoWidth = videoHeight * canvasAspect;
+                        sourceX = (videoWidth - scaledVideoWidth) / 2;
+                        sourceWidth = scaledVideoWidth;
+                    } else {
+                        // Video is taller than canvas - crop top/bottom (like CSS object-fit: cover)
+                        drawWidth = this.canvas.width;
+                        drawHeight = this.canvas.height;
+                        drawX = 0;
+                        drawY = 0;
+                        
+                        // Calculate which part of the video to use (crop vertically)
+                        const scaledVideoHeight = videoWidth / canvasAspect;
+                        sourceY = (videoHeight - scaledVideoHeight) / 2;
+                        sourceHeight = scaledVideoHeight;
                     }
                     
-                    // Draw video with proper aspect ratio
-                    this.ctx.drawImage(this.overlayVideo, drawX, drawY, drawWidth, drawHeight);
-                    console.log(`Overlay drawn at: ${drawX}, ${drawY}, ${drawWidth}x${drawHeight}`);
+                    // Draw video with object-fit: cover behavior (crop to fill)
+                    this.ctx.drawImage(
+                        this.overlayVideo,
+                        sourceX, sourceY, sourceWidth, sourceHeight,  // Source rectangle
+                        drawX, drawY, drawWidth, drawHeight           // Destination rectangle
+                    );
+                    console.log(`Overlay drawn with cover behavior: source(${sourceX}, ${sourceY}, ${sourceWidth}x${sourceHeight}) -> dest(${drawX}, ${drawY}, ${drawWidth}x${drawHeight})`);
                 } else {
                     // Fallback to original method if dimensions not available
                     this.ctx.drawImage(this.overlayVideo, 0, 0, this.canvas.width, this.canvas.height);
