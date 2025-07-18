@@ -16,30 +16,34 @@ function generateQRCode(photoData) {
         if (photoData.firebaseUrl) {
             // Use Firebase photo viewer page instead of direct URL
             let hostname = window.location.hostname;
-            const port = window.location.port || '8000';
             const protocol = window.location.protocol || 'http:';
             
+            // Only add port for localhost development, not for production deployments
+            let portPart = '';
+            if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                const port = window.location.port || '8000';
+                portPart = `:${port}`;
+            }
+            
             const encodedFirebaseUrl = encodeURIComponent(photoData.firebaseUrl);
-            qrUrl = `${protocol}//${hostname}${port ? ':' + port : ''}/firebase-photo.html?firebase_url=${encodedFirebaseUrl}`;
+            qrUrl = `${protocol}//${hostname}${portPart}/firebase-photo.html?firebase_url=${encodedFirebaseUrl}`;
             storageType = 'Firebase';
             console.log('Using Firebase photo viewer page for QR code:', qrUrl);
         } else {
             // Fallback to local viewer link
             let hostname = window.location.hostname;
-
-            // If hostname is localhost, try to get the actual IP
-            if (hostname === 'localhost' || hostname === '127.0.0.1') {
-                // Try to get the actual IP from the user's network
-                // This will still show localhost in the QR code, but we'll add a note
-                hostname = window.location.hostname;
-            }
-
-            const port = window.location.port || '8000';
             const protocol = window.location.protocol || 'http:';
+
+            // Only add port for localhost development, not for production deployments
+            let portPart = '';
+            if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                const port = window.location.port || '8000';
+                portPart = `:${port}`;
+            }
 
             // Create a simple filename-based link
             const encodedFilename = encodeURIComponent(photoData.filename);
-            qrUrl = `${protocol}//${hostname}${port ? ':' + port : ''}/view-photo.html?filename=${encodedFilename}`;
+            qrUrl = `${protocol}//${hostname}${portPart}/view-photo.html?filename=${encodedFilename}`;
             storageType = 'Local';
             console.log('Using local photo viewer link for QR code:', qrUrl);
         }
