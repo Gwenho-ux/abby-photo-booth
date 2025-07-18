@@ -14,10 +14,15 @@ function generateQRCode(photoData) {
         let storageType;
 
         if (photoData.firebaseUrl) {
-            // Use Firebase Storage URL if available
-            qrUrl = photoData.firebaseUrl;
+            // Use Firebase photo viewer page instead of direct URL
+            let hostname = window.location.hostname;
+            const port = window.location.port || '8000';
+            const protocol = window.location.protocol || 'http:';
+            
+            const encodedFirebaseUrl = encodeURIComponent(photoData.firebaseUrl);
+            qrUrl = `${protocol}//${hostname}${port ? ':' + port : ''}/firebase-photo.html?firebase_url=${encodedFirebaseUrl}`;
             storageType = 'Firebase';
-            console.log('Using Firebase Storage URL for QR code:', qrUrl);
+            console.log('Using Firebase photo viewer page for QR code:', qrUrl);
         } else {
             // Fallback to local viewer link
             let hostname = window.location.hostname;
