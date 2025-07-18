@@ -326,10 +326,10 @@
                         <img src="${firebaseUrl}" alt="Your Photo" class="photo">
                     </div>
                     <div class="buttons-container">
-                                                 <a href="${firebaseUrl}" download="${filename}" class="action-btn download-btn">
+                                                 <button onclick="downloadPhoto('${firebaseUrl}', '${filename}')" class="action-btn download-btn">
                              <span class="btn-glow"></span>
                              <span class="btn-text">📥 Download Now</span>
-                         </a>
+                         </button>
                          <a href="#" onclick="shareToX('${firebaseUrl}')" class="action-btn share-btn">
                              <span class="btn-glow"></span>
                              <span class="btn-text">🐦 Share to X</span>
@@ -349,6 +349,69 @@
             };
 
             img.src = firebaseUrl;
+        }
+
+        function detectMobileDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // iOS detection
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'ios';
+            }
+            
+            // Android detection
+            if (/android/i.test(userAgent)) {
+                return 'android';
+            }
+            
+            // Mobile detection (general)
+            if (/Mobi|Android/i.test(userAgent)) {
+                return 'mobile';
+            }
+            
+            return 'desktop';
+        }
+
+        function downloadPhoto(photoUrl, filename) {
+            const deviceType = detectMobileDevice();
+            
+            if (deviceType === 'ios') {
+                // iOS: Open image in new tab where user can long-press to save to Photos
+                const newWindow = window.open(photoUrl, '_blank');
+                
+                // Show instruction after a short delay
+                setTimeout(() => {
+                    if (newWindow && !newWindow.closed) {
+                        alert('📸 To save to Photos:\n\n1. Long press the image\n2. Select "Save to Photos" or "Add to Photos"');
+                    }
+                }, 1000);
+                
+            } else if (deviceType === 'android') {
+                // Android: Try download attribute first, fallback to new tab
+                const link = document.createElement('a');
+                link.href = photoUrl;
+                link.download = filename;
+                link.target = '_blank';
+                
+                // Try download first
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Fallback: Show instruction for manual download
+                setTimeout(() => {
+                    alert('📱 If download didn\'t start:\n\n1. Long press the image\n2. Select "Download image" or "Save image"');
+                }, 500);
+                
+            } else {
+                // Desktop: Standard download behavior
+                const link = document.createElement('a');
+                link.href = photoUrl;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         }
 
         function shareToX(photoUrl) {
