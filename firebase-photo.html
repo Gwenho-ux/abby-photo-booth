@@ -60,9 +60,38 @@
             font-size: 2.5rem;
             font-weight: 800;
             color: #12ACEC;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
             transform: rotate(0deg);
+        }
+
+        .download-instruction {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 2px solid #25E3B0;
+            box-shadow: 
+                0 0 0 1px #23456A,
+                0 8px 24px rgba(37, 227, 176, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .download-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #25E3B0;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .download-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #23456A;
+            text-align: center;
+            margin: 0;
+            opacity: 0.8;
         }
 
         .photo-container {
@@ -282,7 +311,11 @@
 
     <div class="container">
         <div class="header">
-            <h1 class="title">📸 Download and share your photo!</h1>
+            <h1 class="title">📸 Your Photo!</h1>
+            <div class="download-instruction">
+                <h2 class="download-title">Long Hold To Download</h2>
+                <p class="download-subtitle">Press and hold the photo to save to your device</p>
+            </div>
         </div>
 
         <div id="content">
@@ -325,16 +358,12 @@
                     <div class="photo-container">
                         <img src="${firebaseUrl}" alt="Your Photo" class="photo">
                     </div>
-                    <div class="buttons-container">
-                                                 <button onclick="downloadPhoto('${firebaseUrl}', '${filename}')" class="action-btn download-btn">
-                             <span class="btn-glow"></span>
-                             <span class="btn-text">📥 Download Now</span>
-                         </button>
+                                         <div class="buttons-container">
                          <a href="#" onclick="shareToX('${firebaseUrl}')" class="action-btn share-btn">
                              <span class="btn-glow"></span>
                              <span class="btn-text">🐦 Share to X</span>
                          </a>
-                    </div>
+                     </div>
                 `;
             };
 

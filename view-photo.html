@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📸 Photo Booth - Your Photo!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
@@ -94,30 +95,42 @@
         }
 
         .title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
-            font-weight: 900;
-            color: #EE9ABF;
-            text-shadow:
-                3px 3px 0px #2D1B2E,
-                6px 6px 0px rgba(238, 154, 191, 0.3);
-            margin-bottom: 10px;
+            font-weight: 800;
+            color: #12ACEC;
+            margin-bottom: 20px;
             letter-spacing: 2px;
-            transform: rotate(-2deg);
-            animation: titlePulse 2s ease-in-out infinite;
+            transform: rotate(0deg);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #2D1B2E;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 8px 20px;
-            border-radius: 25px;
-            border: 3px solid #EE9ABF;
-            box-shadow:
-                0 0 0 3px #2D1B2E,
-                5px 5px 0px rgba(238, 154, 191, 0.3);
-            transform: rotate(1deg);
-            display: inline-block;
+        .download-instruction {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 2px solid #25E3B0;
+            box-shadow: 
+                0 0 0 1px #23456A,
+                0 8px 24px rgba(37, 227, 176, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .download-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #25E3B0;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .download-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #23456A;
+            text-align: center;
+            margin: 0;
+            opacity: 0.8;
         }
 
         @keyframes bounceIn {
@@ -420,8 +433,11 @@
 
     <div class="container">
         <div class="header">
-            <h1 class="title wiggle">📸 Your Photo!</h1>
-            <div class="subtitle">From the Photo Booth</div>
+            <h1 class="title">📸 Your Photo!</h1>
+            <div class="download-instruction">
+                <h2 class="download-title">Long Hold To Download</h2>
+                <p class="download-subtitle">Press and hold the photo to save to your device</p>
+            </div>
         </div>
 
         <div id="content">
@@ -464,15 +480,11 @@
                         <div class="filename">📁 ${filename}</div>
                     </div>
                     <div class="buttons-container">
-                        <button onclick="downloadPhoto('${photoUrl}', '${filename}')" class="action-btn download-btn">
-                            <span class="btn-glow"></span>
-                            📥 Download Photo
-                        </button>
-                        <a href="/" class="action-btn" style="background: linear-gradient(45deg, #FF91C7, #FFB6DF); color: #2D1B2E; text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);">
+                        <a href="/" class="action-btn" style="background: #25E3B0; color: #23456A;">
                             <span class="btn-glow"></span>
                             📸 Take Another Photo
                         </a>
-                        <a href="https://www.mocaverse.xyz/" target="_blank" class="action-btn visit-btn">
+                        <a href="https://www.mocaverse.xyz/" target="_blank" class="action-btn" style="background: #12ACEC; color: white;">
                             <span class="btn-glow"></span>
                             🌟 Visit Mocaverse
                         </a>
@@ -487,11 +499,11 @@
                         <div class="error-message">The photo "${filename}" couldn't be found.</div>
                         <div class="error-message">It might have been deleted or the link is invalid.</div>
                         <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                            <a href="/" class="action-btn" style="background: linear-gradient(45deg, #FF91C7, #FFB6DF); color: #2D1B2E; text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8); display: inline-block; width: auto;">
+                            <a href="/" class="action-btn" style="background: #25E3B0; color: #23456A; display: inline-block; width: auto;">
                                 <span class="btn-glow"></span>
                                 📸 Take Another Photo
                             </a>
-                            <a href="https://www.mocaverse.xyz/" target="_blank" class="action-btn visit-btn" style="display: inline-block; width: auto;">
+                            <a href="https://www.mocaverse.xyz/" target="_blank" class="action-btn" style="background: #12ACEC; color: white; display: inline-block; width: auto;">
                                 <span class="btn-glow"></span>
                                 🌟 Visit Mocaverse
                             </a>
