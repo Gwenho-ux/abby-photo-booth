@@ -524,11 +524,41 @@
             return 'desktop';
         }
 
-        function downloadPhoto(photoUrl, filename) {
+        async function downloadPhoto(photoUrl, filename) {
             const deviceType = detectMobileDevice();
             
             if (deviceType === 'ios') {
-                // iOS: Open image in new tab where user can long-press to save to Photos
+                // Try native iOS Web Share API first (includes Save to Photos option)
+                if (navigator.share) {
+                    try {
+                        // Always try to fetch and share as file for best iOS Photos integration
+                        const response = await fetch(photoUrl, { mode: 'cors' });
+                        const blob = await response.blob();
+                        const file = new File([blob], filename, { type: blob.type || 'image/png' });
+                        
+                        // Check if sharing files is supported
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                title: 'Photo Booth Picture',
+                                text: 'Check out my photo from the photo booth!',
+                                files: [file]
+                            });
+                            return; // Exit if sharing worked
+                        } else {
+                            // Fallback to URL sharing if file sharing not supported
+                            await navigator.share({
+                                title: 'Photo Booth Picture',
+                                text: 'Check out my photo from the photo booth!',
+                                url: photoUrl
+                            });
+                            return;
+                        }
+                    } catch (error) {
+                        console.log('Web Share API failed, falling back to manual method:', error);
+                    }
+                }
+                
+                // Fallback: Open image in new tab where user can long-press to save to Photos
                 const newWindow = window.open(photoUrl, '_blank');
                 
                 // Show instruction after a short delay
