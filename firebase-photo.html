@@ -50,6 +50,17 @@
             padding: 20px;
         }
 
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            transform: rotate(0deg);
+            text-align: center;
+        }
+
         .content-wrapper {
             background: rgba(255, 255, 255, 0.95);
             padding: 40px 32px;
@@ -72,24 +83,13 @@
             z-index: 10;
         }
 
-        .title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #12ACEC;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            transform: rotate(0deg);
-        }
+
 
         .download-instruction {
-            background: rgba(37, 227, 176, 0.1);
+            background: transparent;
             padding: 20px 30px;
             border-radius: 12px;
-            border: 2px solid #25E3B0;
-            box-shadow: 
-                0 0 0 1px #23456A,
-                0 8px 24px rgba(37, 227, 176, 0.2);
+            border: none;
             margin-bottom: 30px;
         }
 
@@ -97,7 +97,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: #25E3B0;
+            color: #23456A;
             margin-bottom: 8px;
             text-align: center;
         }
@@ -224,7 +224,7 @@
                 padding: 15px;
             }
 
-            .title {
+            .page-title {
                 font-size: 2rem;
             }
 
@@ -241,7 +241,7 @@
         }
 
         @media (max-width: 480px) {
-            .title {
+            .page-title {
                 font-size: 1.8rem;
             }
 
@@ -260,9 +260,9 @@
     <div class="particles"></div>
 
     <div class="container">
+        <h1 class="page-title">📸 Your Photo!</h1>
         <div class="content-wrapper">
             <div class="header">
-                <h1 class="title">📸 Your Photo!</h1>
                 <div class="download-instruction">
                     <h2 class="download-title">Save Photo to Your Device</h2>
                     <p class="download-subtitle">Press and Hold</p>
@@ -285,7 +285,7 @@
         const contentDiv = document.getElementById('content');
 
         if (!firebaseUrl) {
-            contentDiv.innerHTML = `
+            document.querySelector('.content-wrapper').innerHTML = `
                 <div class="error-container">
                     <div class="error-title">🤔 Oops!</div>
                     <div class="error-message">No photo URL specified.</div>
