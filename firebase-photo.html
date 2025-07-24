@@ -47,6 +47,23 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 32px;
+            border-radius: 16px;
+            border: 2px solid #12ACEC;
+            box-shadow: 
+                0 0 0 1px #23456A,
+                0 16px 48px rgba(18, 172, 236, 0.2);
+            backdrop-filter: blur(15px);
+            transform: rotate(0deg);
+            max-width: 90vw;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
         }
 
         .header {
@@ -66,14 +83,14 @@
         }
 
         .download-instruction {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(37, 227, 176, 0.1);
             padding: 20px 30px;
             border-radius: 12px;
             border: 2px solid #25E3B0;
             box-shadow: 
                 0 0 0 1px #23456A,
                 0 8px 24px rgba(37, 227, 176, 0.2);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .download-title {
@@ -95,21 +112,11 @@
         }
 
         .photo-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 32px;
-            border-radius: 16px;
-            border: 2px solid #12ACEC;
-            box-shadow: 
-                0 0 0 1px #23456A,
-                0 16px 48px rgba(18, 172, 236, 0.2);
-            backdrop-filter: blur(15px);
-            transform: rotate(0deg);
             margin-bottom: 30px;
-            max-width: 90vw;
         }
 
         .photo {
-            max-width: 800px;
+            max-width: 100%;
             max-height: 450px;
             width: 100%;
             height: auto;
@@ -119,78 +126,31 @@
                 0 0 0 1px #23456A,
                 0 8px 24px rgba(18, 172, 236, 0.3);
             display: block;
+            margin: 0 auto;
         }
 
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
+        .sharing-info {
+            background: rgba(18, 172, 236, 0.1);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 2px solid #12ACEC;
+            box-shadow: 
+                0 0 0 1px #23456A,
+                0 8px 24px rgba(18, 172, 236, 0.2);
+            margin-top: 20px;
         }
 
-        .action-btn {
-            position: relative;
-            background: #25E3B0;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+        .sharing-text {
+            font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-            box-shadow: 
-                0 4px 12px rgba(18, 172, 236, 0.3),
-                0 2px 4px rgba(35, 69, 106, 0.2);
-            transform: rotate(0deg);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: #23456A;
-            margin: 8px;
-        }
-
-        .download-btn {
-            background: #25E3B0;
-        }
-
-        .share-btn {
-            background: #12ACEC;
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 8px 24px rgba(18, 172, 236, 0.4),
-                0 4px 8px rgba(35, 69, 106, 0.3);
-        }
-
-        .btn-text {
-            position: relative;
-            z-index: 2;
+            text-align: center;
+            margin: 0;
             font-weight: 600;
+            line-height: 1.4;
         }
 
-        .btn-glow {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
 
-        .action-btn:hover .btn-glow {
-            left: 100%;
-        }
 
         .error-container {
             background: rgba(255, 255, 255, 0.95);
@@ -277,14 +237,7 @@
                 max-width: 100%;
             }
 
-            .action-btn {
-                padding: 16px 30px;
-                font-size: 1.1rem;
-            }
 
-            .buttons-container {
-                gap: 15px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -292,10 +245,7 @@
                 font-size: 1.8rem;
             }
 
-            .action-btn {
-                padding: 14px 25px;
-                font-size: 1rem;
-            }
+
 
             .photo-container {
                 padding: 12px;
@@ -310,18 +260,20 @@
     <div class="particles"></div>
 
     <div class="container">
-        <div class="header">
-            <h1 class="title">📸 Your Photo!</h1>
-            <div class="download-instruction">
-                <h2 class="download-title">Long Hold To Download</h2>
-                <p class="download-subtitle">Press and hold the photo to save to your device</p>
+        <div class="content-wrapper">
+            <div class="header">
+                <h1 class="title">📸 Your Photo!</h1>
+                <div class="download-instruction">
+                    <h2 class="download-title">Save Photo to Your Device</h2>
+                    <p class="download-subtitle">Press and Hold</p>
+                </div>
             </div>
-        </div>
 
-        <div id="content">
-            <div class="loading">
-                <div class="spinner"></div>
-                <div>Loading your photo...</div>
+            <div id="content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>Loading your photo...</div>
+                </div>
             </div>
         </div>
     </div>
@@ -358,12 +310,9 @@
                     <div class="photo-container">
                         <img src="${firebaseUrl}" alt="Your Photo" class="photo">
                     </div>
-                                         <div class="buttons-container">
-                         <a href="#" onclick="shareToX('${firebaseUrl}')" class="action-btn share-btn">
-                             <span class="btn-glow"></span>
-                             <span class="btn-text">🐦 Share to X</span>
-                         </a>
-                     </div>
+                    <div class="sharing-info">
+                        <p class="sharing-text">The most creative poser will be shared and tagged by Animoca Brands' X</p>
+                    </div>
                 `;
             };
 
@@ -473,11 +422,7 @@
             }
         }
 
-        function shareToX(photoUrl) {
-            const shareText = "Check out my awesome photo from the Photo Booth! 📸✨";
-            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(photoUrl)}`;
-            window.open(shareUrl, '_blank', 'width=600,height=400');
-        }
+
     </script>
 </body>
 
